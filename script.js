@@ -1,4 +1,5 @@
 const sectionProductItemElement = document.getElementsByClassName('items')[0];
+const cartItems = document.querySelectorAll('.cart__items')[0];
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -32,27 +33,34 @@ function createProductItemElement({ sku, name, image }) {
 //   // coloque seu código aqui
 // }
 
-// function createCartItemElement({ sku, name, salePrice }) {
-//   const li = document.createElement('li');
-//   li.className = 'cart__item';
-//   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-//   li.addEventListener('click', cartItemClickListener);
-//   return li;
-// }
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  // li.addEventListener('click', cartItemClickListener);
+  return li;
+}
 
 async function recebeFetchProduct() {
   const recebeFetchProducts = await fetchProducts();
   const { results } = recebeFetchProducts;
   results.forEach((v) => {
     const element = createProductItemElement({ sku: v.id, name: v.title, image: v.thumbnail });
-    sectionProductItemElement.appendChild(element); 
+    sectionProductItemElement.appendChild(element);
   });
 }
 
-async function recebeFetchItem(id) {
-  const recebeFetchItems = await fetchItem(id);
-  console.log(recebeFetchItems);
-}
-
-recebeFetchProduct();
-recebeFetchItem('MLB1341706310');
+window.onload = async () => {
+  await recebeFetchProduct();
+  const cadaCatalogo = document.querySelectorAll('.item');
+  for (let i = 0; i < cadaCatalogo.length; i += 1) {
+    const identificador = document.querySelectorAll('.item__sku')[i].innerText;
+    const buttonAddCart = document.querySelectorAll('.item')[i];
+    // eslint-disable-next-line no-loop-func
+    buttonAddCart.addEventListener('click', async () => {
+      const fetchItemValor = await fetchItem(identificador);
+      const { id, title, price } = fetchItemValor;
+      cartItems.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
+    });
+  }
+};
