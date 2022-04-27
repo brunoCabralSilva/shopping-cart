@@ -40,14 +40,19 @@ function createProductItemElement({ sku, name, image }) {
 //   return li;
 // }
 
-async function recebeFetch() {
+async function recebeFetchProduct() {
   const recebeFetchProducts = await fetchProducts();
   const { results } = recebeFetchProducts;
-  console.log(results[0]);
   results.forEach((v) => {
     const element = createProductItemElement({ sku: v.id, name: v.title, image: v.thumbnail });
     sectionProductItemElement.appendChild(element); 
   });
 }
 
-recebeFetch();
+async function recebeFetchItem(id) {
+  const recebeFetchItems = await fetchItem(id);
+  console.log(recebeFetchItems);
+}
+
+recebeFetchProduct();
+recebeFetchItem('MLB1341706310');
