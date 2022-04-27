@@ -87,7 +87,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-basis: 70%;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   justify-content: center;
   margin: 40px 0;
 }
