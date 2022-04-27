@@ -85,7 +85,6 @@ body {
 
 .items {
   display: flex;
-  flex-direction: row;
   flex-basis: 70%;
   flex-flow: wrap;
   justify-content: center;
