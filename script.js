@@ -50,15 +50,19 @@ async function recebeFetchProduct() {
   });
 }
 
+async function recebeFetchItem(id) {
+  const recebeFetch = await fetchItem(id);
+  return recebeFetch;
+}
+
 window.onload = async () => {
   await recebeFetchProduct();
   const cadaCatalogo = document.querySelectorAll('.item');
   for (let i = 0; i < cadaCatalogo.length; i += 1) {
     const identificador = document.querySelectorAll('.item__sku')[i].innerText;
     const buttonAddCart = document.querySelectorAll('.item')[i];
-    // eslint-disable-next-line no-loop-func
     buttonAddCart.addEventListener('click', async () => {
-      const fetchItemValor = await fetchItem(identificador);
+      const fetchItemValor = await recebeFetchItem(identificador);
       const { id, title, price } = fetchItemValor;
       cartItems.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
     });
