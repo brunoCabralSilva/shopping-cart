@@ -140,7 +140,6 @@ body {
 
 .cart {
   display: flex;
-  flex-direction: column;
   flex-basis: 32%;
   flex-flow: column wrap;
   background-color: rgb(10, 118, 79);
@@ -171,10 +170,9 @@ body {
 
 .empty-cart:hover {
   background-color: rgb(4, 88, 76);
-  
 }
 
-.total-price{
+.total-price {
   padding: 20px;
   text-align: center;
 }
