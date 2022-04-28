@@ -19,6 +19,7 @@ async function recebeFetchItem(id) {
 
 async function totalPrice() {
   const getLi = document.querySelectorAll('.cart__item');
+  console.log(getLi);
   let soma = 0;
   getLi.forEach(async (valor) => {
     const fetch = await fetchItem(valor.id);
@@ -56,14 +57,14 @@ function createProductItemElement({ sku, name, image }) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
-function cartItemClickListener(event) {
+async function cartItemClickListener(event) {
   event.target.remove();
   setLocale();
   const numeroDeItens = document.getElementsByClassName('cart__item');
   if (numeroDeItens.length === 0) {
     priceTotal.innerText = '';
   } else {
-    totalPrice();
+    await totalPrice();
   }
 }
 
@@ -95,7 +96,7 @@ function pegaIdECriaEvento() {
       const { id, title, price } = fetchItemValor;
       cartItems.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
       setLocale();
-      totalPrice();
+      await totalPrice();
     });
   }
 }
