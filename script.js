@@ -2,6 +2,7 @@ const sectionProductItemElement = document.getElementsByClassName('items')[0];
 const cartItems = document.querySelectorAll('.cart__items')[0];
 const esvazia = document.querySelectorAll('.empty-cart')[0];
 const priceTotal = document.getElementsByClassName('total-price')[0];
+let soma = 0;
 
 function setLocale() {
   const set = saveCartItems();
@@ -20,7 +21,7 @@ async function recebeFetchItem(id) {
 async function totalPrice() {
   const getLi = document.querySelectorAll('.cart__item');
   console.log(getLi);
-  let soma = 0;
+  soma = 0;
   getLi.forEach(async (valor) => {
     const fetch = await fetchItem(valor.id);
     soma += fetch.price;
@@ -62,7 +63,9 @@ async function cartItemClickListener(event) {
   setLocale();
   const numeroDeItens = document.getElementsByClassName('cart__item');
   if (numeroDeItens.length === 0) {
-    priceTotal.innerText = '';
+    soma = 0;
+    priceTotal.innerText = `Subtotal:
+  RS ${soma.toFixed(2)} `;
   } else {
     await totalPrice();
   }
@@ -105,7 +108,9 @@ function esvaziaCarroDeCompras() {
   esvazia.addEventListener('click', () => {
     localStorage.clear();
     getLocale();
-    priceTotal.innerText = '';
+    soma = 0;
+    priceTotal.innerText = `Subtotal:
+  RS ${soma.toFixed(2)} `;
   });
 }
 
