@@ -67,9 +67,7 @@ function getLocale() {
   return getSavedCartItems();
 }
 
-window.onload = async () => {
-  await getSavedCartItems();
-  await recebeFetchProduct();
+function pegaIdECriaEvento() {
   const cadaCatalogo = document.querySelectorAll('.item');
   for (let i = 0; i < cadaCatalogo.length; i += 1) {
     const identificador = document.querySelectorAll('.item__sku')[i].innerText;
@@ -80,9 +78,19 @@ window.onload = async () => {
       cartItems.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
       setLocale();
     });
-    esvazia.addEventListener('click', () => {
-      localStorage.clear();
-      getLocale();
-    });
   }
+}
+
+function esvaziaCarroDeCompras() {
+  esvazia.addEventListener('click', () => {
+    localStorage.clear();
+    getLocale();
+  });
+}
+
+window.onload = async () => {
+  await getSavedCartItems();
+  await recebeFetchProduct();
+  pegaIdECriaEvento();
+  esvaziaCarroDeCompras();
 };
