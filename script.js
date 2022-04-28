@@ -88,8 +88,17 @@ function esvaziaCarroDeCompras() {
   });
 }
 
+function criaEventosParaLiSalvas() {
+  const listasSalvas = document.getElementsByClassName('cart__item');
+  for (let i = 0; i < listasSalvas.length; i += 1) {
+    const cadaItemDaLista = document.getElementsByClassName('cart__item')[i];
+    cadaItemDaLista.addEventListener('click', cartItemClickListener);
+  }
+}
+
 window.onload = async () => {
   await getSavedCartItems();
+  criaEventosParaLiSalvas();
   await recebeFetchProduct();
   pegaIdECriaEvento();
   esvaziaCarroDeCompras();
