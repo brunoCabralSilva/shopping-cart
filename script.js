@@ -1,17 +1,38 @@
 const sectionProductItemElement = document.getElementsByClassName('items')[0];
 const cartItems = document.querySelectorAll('.cart__items')[0];
 const esvazia = document.querySelectorAll('.empty-cart')[0];
+const priceTotal = document.getElementsByClassName('total-price')[0];
+
+function setLocale() {
+  const set = saveCartItems();
+  return set;
+}
+
+function getLocale() {
+  return getSavedCartItems();
+}
+
+async function recebeFetchItem(id) {
+  const recebeFetch = await fetchItem(id);
+  return recebeFetch;
+}
+
+async function totalPrice() {
+  const getLi = document.querySelectorAll('.cart__item');
+  let soma = 0;
+  getLi.forEach(async (valor) => {
+    const fetch = await fetchItem(valor.id);
+    soma += fetch.price;
+    priceTotal.innerText = `Subtotal:
+  RS ${soma} `;
+  });
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
   return img;
-}
-
-function setLocale() {
-  const set = saveCartItems();
-  return set;
 }
 
 function createCustomElement(element, className, innerText) {
@@ -38,6 +59,7 @@ function createProductItemElement({ sku, name, image }) {
 function cartItemClickListener(event) {
   event.target.remove();
   setLocale();
+  totalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -58,15 +80,6 @@ async function recebeFetchProduct() {
   });
 }
 
-async function recebeFetchItem(id) {
-  const recebeFetch = await fetchItem(id);
-  return recebeFetch;
-}
-
-function getLocale() {
-  return getSavedCartItems();
-}
-
 function pegaIdECriaEvento() {
   const cadaCatalogo = document.querySelectorAll('.item');
   for (let i = 0; i < cadaCatalogo.length; i += 1) {
@@ -77,6 +90,7 @@ function pegaIdECriaEvento() {
       const { id, title, price } = fetchItemValor;
       cartItems.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
       setLocale();
+      totalPrice();
     });
   }
 }
@@ -85,6 +99,7 @@ function esvaziaCarroDeCompras() {
   esvazia.addEventListener('click', () => {
     localStorage.clear();
     getLocale();
+    priceTotal.innerText = '';
   });
 }
 
@@ -102,4 +117,5 @@ window.onload = async () => {
   await recebeFetchProduct();
   pegaIdECriaEvento();
   esvaziaCarroDeCompras();
+  await totalPrice();
 };

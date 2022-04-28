@@ -140,10 +140,11 @@ body {
 
 .cart {
   display: flex;
+  flex-direction: column;
   flex-basis: 32%;
   flex-flow: column wrap;
   background-color: rgb(10, 118, 79);
-  height: 100vh;
+  height: 100%;
 }
 
 .cart .cart__items {
@@ -161,7 +162,7 @@ body {
 .empty-cart {
   width: 170px;
   height: 35px;
-  margin: 0 auto;
+  margin: 20px auto;
   border: 1px solid white;
   background-color: rgb(3, 52, 45);
   color: rgb(249, 249, 246);
@@ -170,4 +171,10 @@ body {
 
 .empty-cart:hover {
   background-color: rgb(4, 88, 76);
+  
+}
+
+.total-price{
+  padding: 20px;
+  text-align: center;
 }
