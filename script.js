@@ -24,7 +24,7 @@ async function totalPrice() {
     const fetch = await fetchItem(valor.id);
     soma += fetch.price;
     priceTotal.innerText = `Subtotal:
-  RS ${soma} `;
+  RS ${soma.toFixed(2)} `;
   });
 }
 
@@ -59,7 +59,12 @@ function createProductItemElement({ sku, name, image }) {
 function cartItemClickListener(event) {
   event.target.remove();
   setLocale();
-  totalPrice();
+  const numeroDeItens = document.getElementsByClassName('cart__item');
+  if (numeroDeItens.length === 0) {
+    priceTotal.innerText = '';
+  } else {
+    totalPrice();
+  }
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
