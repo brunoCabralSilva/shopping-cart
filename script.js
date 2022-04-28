@@ -20,7 +20,6 @@ async function recebeFetchItem(id) {
 
 async function totalPrice() {
   const getLi = document.querySelectorAll('.cart__item');
-  console.log(getLi);
   soma = 0;
   getLi.forEach(async (valor) => {
     const fetch = await fetchItem(valor.id);
@@ -58,17 +57,21 @@ function createProductItemElement({ sku, name, image }) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
-async function cartItemClickListener(event) {
-  event.target.remove();
-  setLocale();
+async function verificaSeVazio() {
   const numeroDeItens = document.getElementsByClassName('cart__item');
-  if (numeroDeItens.length === 0) {
+  if (numeroDeItens === 0) {
     soma = 0;
     priceTotal.innerText = `Subtotal:
-  RS ${soma.toFixed(2)} `;
+      RS ${soma.toFixed(2)} `;
   } else {
     await totalPrice();
   }
+}
+
+async function cartItemClickListener(event) {
+  event.target.remove();
+  setLocale();
+  verificaSeVazio();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -99,7 +102,7 @@ function pegaIdECriaEvento() {
       const { id, title, price } = fetchItemValor;
       cartItems.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
       setLocale();
-      await totalPrice();
+      verificaSeVazio();
     });
   }
 }
@@ -128,5 +131,4 @@ window.onload = async () => {
   await recebeFetchProduct();
   pegaIdECriaEvento();
   esvaziaCarroDeCompras();
-  await totalPrice();
 };
