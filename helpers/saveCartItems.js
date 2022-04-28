@@ -1,5 +1,7 @@
 const saveCartItems = () => {
-  // seu código aqui
+  const lista = document.querySelectorAll('.cart__items')[0].innerHTML;
+  console.log(lista);
+  localStorage.setItem('carrinhoDeCompras', lista);
 };
 
 if (typeof module !== 'undefined') {

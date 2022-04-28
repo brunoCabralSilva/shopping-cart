@@ -1,11 +1,17 @@
 const sectionProductItemElement = document.getElementsByClassName('items')[0];
 const cartItems = document.querySelectorAll('.cart__items')[0];
+const esvazia = document.querySelectorAll('.empty-cart')[0];
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
   return img;
+}
+
+function setLocale() {
+  const set = saveCartItems();
+  return set;
 }
 
 function createCustomElement(element, className, innerText) {
@@ -31,6 +37,7 @@ function createProductItemElement({ sku, name, image }) {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  setLocale();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -56,7 +63,12 @@ async function recebeFetchItem(id) {
   return recebeFetch;
 }
 
+function getLocale() {
+  return getSavedCartItems();
+}
+
 window.onload = async () => {
+  await getSavedCartItems();
   await recebeFetchProduct();
   const cadaCatalogo = document.querySelectorAll('.item');
   for (let i = 0; i < cadaCatalogo.length; i += 1) {
@@ -66,6 +78,11 @@ window.onload = async () => {
       const fetchItemValor = await recebeFetchItem(identificador);
       const { id, title, price } = fetchItemValor;
       cartItems.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
+      setLocale();
+    });
+    esvazia.addEventListener('click', () => {
+      localStorage.clear();
+      getLocale();
     });
   }
 };
