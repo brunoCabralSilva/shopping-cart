@@ -1,12 +1,10 @@
-const url = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
-
-const fetchProducts = async () => {
-  const busca = await fetch(url);
+const url = 'https://api.mercadolibre.com/sites/MLB/search?q=';
+const fetchProducts = async (id) => {
+  const busca = await fetch(`${url}${id}`);
   const data = await busca.json();
-  console.log(data);
   return data;
 };
 
 if (typeof module !== 'undefined') {
-  module.exports = fetchProducts;
+  module.exports = { fetchProducts, url };
 }

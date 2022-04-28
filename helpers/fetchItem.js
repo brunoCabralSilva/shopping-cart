@@ -1,13 +1,14 @@
-async function fetchItem(id) {
-  const busca = await fetch(`https://api.mercadolibre.com/items/${id}`);
-  const data = await busca.json();
-  const objetoJson = {
-    id: data.id,
-    title: data.title,
-    price: data.price,
+const fetchItem = async (id) => {
+  const buscar = await fetch(`https://api.mercadolibre.com/items/${id}`);
+  const dados = await buscar.json();
+  const objetoFetchItem = {
+    id: dados.id,
+    title: dados.title,
+    price: dados.price,
   };
-  return objetoJson;
-}
+  console.log(objetoFetchItem);
+  return objetoFetchItem;
+};
 
 if (typeof module !== 'undefined') {
   module.exports = {
