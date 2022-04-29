@@ -58,7 +58,8 @@ function createProductItemElement({ sku, name, image }) {
 // }
 
 async function verificaSeVazio() {
-  const numeroDeItens = document.getElementsByClassName('cart__item');
+  const numeroDeItens = document.getElementsByClassName('cart__item').length;
+  console.log(numeroDeItens);
   if (numeroDeItens === 0) {
     soma = 0;
     priceTotal.innerText = `Subtotal:
@@ -131,4 +132,5 @@ window.onload = async () => {
   await recebeFetchProduct();
   pegaIdECriaEvento();
   esvaziaCarroDeCompras();
+  await totalPrice();
 };
