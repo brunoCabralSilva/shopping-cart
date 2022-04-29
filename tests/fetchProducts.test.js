@@ -1,6 +1,5 @@
 require('../mocks/fetchSimulator');
-const { fetchProducts } = require('../helpers/fetchProducts');
-let url = require('../helpers/fetchProducts');
+const { fetchProducts, busca } = require('../helpers/fetchProducts');
 const computadorSearch = require('../mocks/search');
 
 describe('1 - Teste a função fecthProducts', () => {
@@ -8,32 +7,29 @@ describe('1 - Teste a função fecthProducts', () => {
   test('Verifica se FetchProducts é uma função', async () => {
     const resultado = await typeof (fetchProducts);
     expect(resultado).toEqual('function');
-  }
-  );
+  });
 
-  // test('Verifica se, ao chamar a função fetchProducts com o argumento "computador", a função fetch utiliza o endpoint esperado"', async () => {
-  //   const resultado = url;
-  //   expect(url).toEqual('https://api.mercadolibre.com/sites/MLB/search?q=computador');
+  // test('Execute a função fetchProducts com o argumento "computador" e teste se fetch foi chamada', async () => {
 
   // });
 
-  test('Verifica se FetchProducts retorna um objeto ao ser chamada', async () => {
-    const resultado = await fetchProducts('computador');
-    const tipo = typeof (resultado);
-    expect(tipo).toEqual('object');
-  }
-  );
+  // test('Verifica se, ao chamar a função fetchProducts com o argumento "computador", a função fetch utiliza o endpoint esperado"', async () => {
+  //   const resultado = await fetchProducts('computador');
+  //   expect(busca).toEqual('https://api.mercadolibre.com/sites/MLB/search?q=computador');
+  // });
 
-  test('Verifica se FetchProducts possui nove chaves', async () => {
+  test('Teste se o retorno da função fetchProducts com o argumento "computador" é uma estrutura de dados igual ao objeto computadorSearch', async () => {
     const resultado = await fetchProducts('computador');
-    const tipo = Object.keys(resultado).length;
-    expect(tipo).toBe(10);
+    expect(Object.keys(resultado)).toEqual(Object.keys(computadorSearch));
   });
 
-  test('Verifica se FetchProducts possui uma chave chamada results', async () => {
-    const resultado = await fetchProducts('computador');
-    const tipo = Object.keys(resultado).includes('results');
-    expect(tipo).toBe(true);
+  test('Teste se, ao chamar a função fetchProducts sem argumento, retorna um erro com a mensagem indicada', async () => {
+    expect(fetchProducts()).rejects.toThrowError(new Error('You must provide an url'));
+  });
+
+  test('Verifica se FetchProducts retorna um objeto ao ser chamada', async () => {
+    const resultado = await typeof (fetchProducts('computador'));
+    expect(resultado).toEqual('object');
   });
 
   test('Verifica se a primeira posição de results possui uma chave chamada id', async () => {

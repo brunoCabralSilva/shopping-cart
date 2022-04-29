@@ -4,30 +4,31 @@ const item = require('../mocks/item');
 
 describe('2 - Teste a função fecthItem', () => {
 
-  // test('Verifica se FetchItem retorna um objeto', async () => {
-  //   const resultado2 = await typeof (fetchItem('MLB2081933352'));
-  //   expect(resultado2).toEqual('object');
-  // });
-
-  // test('Verifica se o objeto retornado por FetchItem possui três chaves', async () => {
-  //   const resultado2 = await fetchItem('MLB2081933352');
-  //   const tamanho = Object.keys(resultado2);
-  //   expect(tamanho).toEqual(['id', 'title', 'price']);
-  // });
-
-  // test ('Verifica se ao enviar o id do primeiro elemento, retorna o id esperado', async () => {
-  //   const itensDaLista = await document.querySelectorAll('.item__sku')[0].innerText;
-  //   const resultado = await fetchItem(itensDaLista).id;
-  //   expect(resultado).toEqual(itensDaLista);
-  // });
-
-  test('Verifica se ao enviar o id do elemento MLB1607748387, retorna o id MLB1607748387', async () => {
-    const resultado = await fetchItem('MLB2081933352');
-    await expect(resultado.id).toBe('MLB2081933352');
+  test('Verifica se FetchItem é uma função', async () => {
+    const resultado = await typeof (fetchItem);
+    expect(resultado).toEqual('function');
   });
 
-  //   id: "MLB2025368730"
-  // price: 1879.06
-  // title: "Pc Computador Cpu Intel Core I5 + Ssd 240gb, 8gb Memória Ram"
+  test('Verifica se ao enviar o id do elemento MLB1607748387, retorna o id MLB1607748387', async () => {
+    const resultado = await fetchItem('MLB1615760527');
+    await expect(resultado.id).toEqual('MLB1615760527');
+  });
 
+  // test('Teste se, ao chamar a função fetchItem com o argumento do item "MLB1615760527", a função fetch utiliza o endpoint "https://api.mercadolibre.com/items/MLB1615760527"', async () => {
+
+  // });
+
+  test('Teste se o retorno da função fetchItem com o argumento do item "MLB1615760527" é uma estrutura de dados igual ao objeto item', async () => {
+    const resultado = await fetchItem('MLB1615760527');
+    expect(Object.keys(resultado)).toEqual(Object.keys(item));
+  });
+
+  test('Teste se, ao chamar a função fetchProducts sem argumento, retorna um erro com a mensagem indicada', async () => {
+    expect(fetchItem()).rejects.toThrowError(new Error('You must provide an url'));
+  });
+
+  test('Verifica se FetchItem retorna um objeto', async () => {
+    const resultado2 = await typeof (fetchItem('MLB2081933352'));
+    expect(resultado2).toEqual('object');
+  });
 });
