@@ -24,8 +24,7 @@ async function totalPrice() {
   getLi.forEach(async (valor) => {
     const fetch = await fetchItem(valor.id);
     soma += fetch.price;
-    priceTotal.innerText = `Subtotal:
-  RS ${soma.toFixed(2)} `;
+    priceTotal.innerText = soma.toFixed(2);
   });
 }
 
@@ -62,8 +61,7 @@ async function verificaSeVazio() {
   console.log(numeroDeItens);
   if (numeroDeItens === 0) {
     soma = 0;
-    priceTotal.innerText = `Subtotal:
-      RS ${soma.toFixed(2)} `;
+    priceTotal.innerText = soma.toFixed(2);
   } else {
     await totalPrice();
   }
@@ -113,8 +111,7 @@ function esvaziaCarroDeCompras() {
     localStorage.clear();
     getLocale();
     soma = 0;
-    priceTotal.innerText = `Subtotal:
-  RS ${soma.toFixed(2)} `;
+    priceTotal.innerText = soma.toFixed(2);
   });
 }
 
