@@ -76,7 +76,6 @@ async function cartItemClickListener(event) {
   event.target.remove();
   setLocale();
   await subtraiValorDoTotal(event.path[0].id);
-
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
