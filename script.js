@@ -6,8 +6,7 @@ const p = document.getElementsByClassName('total-price')[0];
 let soma = 0;
 
 function setLocale() {
-  const set = saveCartItems();
-  return set;
+  return saveCartItems();
 }
 
 function getLocale() {
@@ -23,25 +22,25 @@ async function calculaValoresExistentes() {
   const getLi = document.querySelectorAll('.cart__item');
   soma = 0;
   if (getLi.length === 0) {
-    p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
+    p.innerText = soma;
   } else {
     getLi.forEach(async (valor) => {
       const fetch = await fetchItem(valor.id);
       soma += await fetch.price;
-      p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
+      p.innerText = soma;
     });
   }
 }
 
 async function somaValorNoTotal(price) {
   soma += await price;
-  p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
+  p.innerText = soma;
 }
 
 async function subtraiValorDoTotal(id) {
   const fetch = await fetchItem(id);
   soma -= await fetch.price;
-  p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
+  p.innerText = soma;
 }
 
 function createProductImageElement(imageSource) {
@@ -116,7 +115,7 @@ function esvaziaCarroDeCompras() {
     localStorage.clear();
     getLocale();
     soma = 0;
-    p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
+    p.innerText = soma;
   });
 }
 
