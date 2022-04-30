@@ -1,7 +1,6 @@
 const sectionProductItemElement = document.getElementsByClassName('items')[0];
 const cartItems = document.querySelectorAll('.cart__items')[0];
 const esvazia = document.querySelectorAll('.empty-cart')[0];
-const priceTotal = document.getElementsByClassName('total-price')[0];
 const p = document.getElementById('precoTotal');
 
 let soma = 0;
