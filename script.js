@@ -2,6 +2,8 @@ const sectionProductItemElement = document.getElementsByClassName('items')[0];
 const cartItems = document.querySelectorAll('.cart__items')[0];
 const esvazia = document.querySelectorAll('.empty-cart')[0];
 const priceTotal = document.getElementsByClassName('total-price')[0];
+const p = document.getElementById('precoTotal');
+
 let soma = 0;
 
 function setLocale() {
@@ -21,11 +23,15 @@ async function recebeFetchItem(id) {
 async function totalPrice() {
   const getLi = document.querySelectorAll('.cart__item');
   soma = 0;
-  getLi.forEach(async (valor) => {
-    const fetch = await fetchItem(valor.id);
-    soma += fetch.price;
-    priceTotal.innerText = soma.toFixed(2);
-  });
+  if (getLi.length === 0) {
+    p.innerText = soma.toFixed(2);
+  } else {
+    getLi.forEach(async (valor) => {
+      const fetch = await fetchItem(valor.id);
+      soma += fetch.price;
+      p.innerText = soma.toFixed(2);
+    });
+  }
 }
 
 function createProductImageElement(imageSource) {
@@ -58,10 +64,9 @@ function createProductItemElement({ sku, name, image }) {
 
 async function verificaSeVazio() {
   const numeroDeItens = document.getElementsByClassName('cart__item').length;
-  console.log(numeroDeItens);
   if (numeroDeItens === 0) {
     soma = 0;
-    priceTotal.innerText = soma.toFixed(2);
+    p.innerText = soma.toFixed(2);
   } else {
     await totalPrice();
   }
@@ -111,7 +116,7 @@ function esvaziaCarroDeCompras() {
     localStorage.clear();
     getLocale();
     soma = 0;
-    priceTotal.innerText = soma.toFixed(2);
+    p.innerText = soma.toFixed(2);
   });
 }
 
