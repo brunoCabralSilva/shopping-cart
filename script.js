@@ -23,25 +23,25 @@ async function calculaValoresExistentes() {
   const getLi = document.querySelectorAll('.cart__item');
   soma = 0;
   if (getLi.length === 0) {
-    p.innerText = soma.toFixed(2);
+    p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
   } else {
     getLi.forEach(async (valor) => {
       const fetch = await fetchItem(valor.id);
       soma += await fetch.price;
-      p.innerText = soma.toFixed(2);
+      p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
     });
   }
 }
 
 async function somaValorNoTotal(price) {
   soma += await price;
-  p.innerText = soma.toFixed(2);
+  p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
 }
 
 async function subtraiValorDoTotal(id) {
   const fetch = await fetchItem(id);
-  soma -= fetch.price;
-  p.innerText = soma.toFixed(2);
+  soma -= await fetch.price;
+  p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
 }
 
 function createProductImageElement(imageSource) {
@@ -116,7 +116,7 @@ function esvaziaCarroDeCompras() {
     localStorage.clear();
     getLocale();
     soma = 0;
-    p.innerText = soma.toFixed(2);
+    p.innerText = `Subtotal: R$ ${soma.toFixed(2)}`;
   });
 }
 
@@ -129,10 +129,10 @@ function criaEventosParaLiSalvas() {
 }
 
 window.onload = async () => {
-  await getSavedCartItems();
-  criaEventosParaLiSalvas();
   await recebeFetchProduct();
-  pegaIdECriaEvento();
-  esvaziaCarroDeCompras();
+  await getSavedCartItems();
   await calculaValoresExistentes();
+  criaEventosParaLiSalvas();
+  pegaIdECriaEvento();
+  esvaziaCarroDeCompras();  
 };
