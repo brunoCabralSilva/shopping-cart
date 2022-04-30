@@ -19,18 +19,29 @@ async function recebeFetchItem(id) {
   return recebeFetch;
 }
 
-async function totalPrice() {
+async function calculaValoresExistentes() {
   const getLi = document.querySelectorAll('.cart__item');
   soma = 0;
   if (getLi.length === 0) {
     p.innerText = soma.toFixed(2);
   } else {
-      getLi.forEach(async (valor) => {
+    getLi.forEach(async (valor) => {
       const fetch = await fetchItem(valor.id);
       soma += await fetch.price;
       p.innerText = soma.toFixed(2);
     });
   }
+}
+
+async function somaValorNoTotal(price) {
+  soma += await price;
+  p.innerText = soma.toFixed(2);
+}
+
+async function subtraiValorDoTotal(id) {
+  const fetch = await fetchItem(id);
+  soma -= fetch.price;
+  p.innerText = soma.toFixed(2);
 }
 
 function createProductImageElement(imageSource) {
@@ -61,20 +72,11 @@ function createProductItemElement({ sku, name, image }) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
-async function verificaSeVazio() {
-  const numeroDeItens = document.getElementsByClassName('cart__item').length;
-  if (numeroDeItens === 0) {
-    soma = 0;
-    p.innerText = soma.toFixed(2);
-  } else {
-    await totalPrice();
-  }
-}
-
 async function cartItemClickListener(event) {
   event.target.remove();
   setLocale();
-  verificaSeVazio();
+  await subtraiValorDoTotal(event.path[0].id);
+
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -105,7 +107,7 @@ function pegaIdECriaEvento() {
       const { id, title, price } = fetchItemValor;
       cartItems.appendChild(createCartItemElement({ sku: id, name: title, salePrice: price }));
       setLocale();
-      verificaSeVazio();
+      somaValorNoTotal(price);
     });
   }
 }
@@ -133,5 +135,5 @@ window.onload = async () => {
   await recebeFetchProduct();
   pegaIdECriaEvento();
   esvaziaCarroDeCompras();
-  await totalPrice();
+  await calculaValoresExistentes();
 };
