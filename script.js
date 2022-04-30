@@ -25,9 +25,9 @@ async function totalPrice() {
   if (getLi.length === 0) {
     p.innerText = soma.toFixed(2);
   } else {
-    getLi.forEach(async (valor) => {
+      getLi.forEach(async (valor) => {
       const fetch = await fetchItem(valor.id);
-      soma += fetch.price;
+      soma += await fetch.price;
       p.innerText = soma.toFixed(2);
     });
   }
