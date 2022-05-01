@@ -38,9 +38,14 @@ async function somaValorNoTotal(price) {
 }
 
 async function subtraiValorDoTotal(id) {
+  const getLi = document.querySelectorAll('.cart__item');
+  if (getLi.length === 0) {
+    p.innerText = 0; 
+  } else {
   const fetch = await fetchItem(id);
   soma -= await fetch.price;
   p.innerText = soma;
+  }
 }
 
 function createProductImageElement(imageSource) {
@@ -86,8 +91,22 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function criaElementoCarregando() {
+  const sectionLoading = document.createElement('section');
+  sectionLoading.className = 'loading';
+  sectionLoading.innerText = 'carregando';
+  sectionProductItemElement.appendChild(sectionLoading);
+}
+
+function removeElementoCarregando() {
+  const carregando = document.getElementsByClassName('loading')[0];
+  carregando.parentNode.removeChild(carregando);
+}
+
 async function recebeFetchProduct() {
+  criaElementoCarregando();
   const recebeFetchProducts = await fetchProducts('computador');
+  removeElementoCarregando();
   const { results } = recebeFetchProducts;
   results.forEach((v) => {
     const element = createProductItemElement({ sku: v.id, name: v.title, image: v.thumbnail });

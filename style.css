@@ -172,7 +172,20 @@ body {
   background-color: rgb(4, 88, 76);
 }
 
-.total-price {
+#preco {
   padding: 20px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  
+}
+
+#preco p {
+  padding: 3px;
+}
+
+.loading {
+  color: white;
+  font-size: 3em;
+  font-weight: 600;
 }

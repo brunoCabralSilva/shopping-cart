@@ -1,5 +1,5 @@
 require('../mocks/fetchSimulator');
-const { fetchProducts, busca } = require('../helpers/fetchProducts');
+const { fetchProducts } = require('../helpers/fetchProducts');
 const computadorSearch = require('../mocks/search');
 
 describe('1 - Teste a função fecthProducts', () => {
@@ -11,9 +11,10 @@ describe('1 - Teste a função fecthProducts', () => {
 
   // test('Execute a função fetchProducts com o argumento "computador" e teste se fetch foi chamada', async () => {
 
-  // });
+  // }); 
 
   // test('Verifica se, ao chamar a função fetchProducts com o argumento "computador", a função fetch utiliza o endpoint esperado"', async () => {
+    
   //   const resultado = await fetchProducts('computador');
   //   expect(busca).toEqual('https://api.mercadolibre.com/sites/MLB/search?q=computador');
   // });
