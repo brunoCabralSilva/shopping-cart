@@ -10,7 +10,7 @@ function setLocale() {
 }
 
 function getLocale() {
-  return getSavedCartItems();
+  cartItems.innerHTML = getSavedCartItems();
 }
 
 async function recebeFetchItem(id) {
@@ -148,7 +148,7 @@ function criaEventosParaLiSalvas() {
 
 window.onload = async () => {
   await recebeFetchProduct();
-  await getSavedCartItems();
+  getLocale();
   await calculaValoresExistentes();
   criaEventosParaLiSalvas();
   pegaIdECriaEvento();
