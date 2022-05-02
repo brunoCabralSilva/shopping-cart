@@ -9,15 +9,15 @@ describe('1 - Teste a função fecthProducts', () => {
     expect(resultado).toEqual('function');
   });
 
-  // test('Execute a função fetchProducts com o argumento "computador" e teste se fetch foi chamada', async () => {
+  test('Execute a função fetchProducts com o argumento "computador" e teste se fetch foi chamada', async () => {
+    await fetchProducts('computador');
+    expect(fetch).toHaveBeenCalled();
+  }); 
 
-  // }); 
-
-  // test('Verifica se, ao chamar a função fetchProducts com o argumento "computador", a função fetch utiliza o endpoint esperado"', async () => {
-    
-  //   const resultado = await fetchProducts('computador');
-  //   expect(busca).toEqual('https://api.mercadolibre.com/sites/MLB/search?q=computador');
-  // });
+  test('Verifica se, ao chamar a função fetchProducts com o argumento "computador", a função fetch utiliza o endpoint esperado"', async () => {
+    await fetchProducts('computador');
+    expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/sites/MLB/search?q=computador');
+  });
 
   test('Teste se o retorno da função fetchProducts com o argumento "computador" é uma estrutura de dados igual ao objeto computadorSearch', async () => {
     const resultado = await fetchProducts('computador');

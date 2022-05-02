@@ -2,11 +2,11 @@ const sectionProductItemElement = document.getElementsByClassName('items')[0];
 const cartItems = document.querySelectorAll('.cart__items')[0];
 const esvazia = document.querySelectorAll('.empty-cart')[0];
 const p = document.getElementsByClassName('total-price')[0];
-
 let soma = 0;
 
 function setLocale() {
-  return saveCartItems();
+  const lista = document.querySelectorAll('.cart__items')[0].innerHTML;
+  return saveCartItems(lista);
 }
 
 function getLocale() {
